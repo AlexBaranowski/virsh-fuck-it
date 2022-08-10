@@ -9,7 +9,7 @@ set -euo pipefail
 purge_virsh_doms(){
     for domain_name in $(virsh list --all --name ); do
         virsh destroy --domain "$domain_name" || echo "domain already destroyed"
-        virsh undefine --domain "$domain_name" || echo "domain already undefined"
+        virsh undefine --domain "$domain_name" || virsh undefine --domain "$domain_name" --nvram || echo "domain already undefined"
     done
 }
 
